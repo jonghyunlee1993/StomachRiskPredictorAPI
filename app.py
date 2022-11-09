@@ -1,4 +1,5 @@
 from preprocessor import *
+from model import predict
 from flask import Flask, jsonify, request, render_template
 
 
@@ -8,6 +9,7 @@ app = Flask(__name__)
 @app.route('/predict')
 def login():
     center = request.args.get('center')
+    center = encode_center(center)
     age = request.args.get('age', type=int)
     gender = request.args.get('gender')
     gender = check_gender(gender)
@@ -36,8 +38,20 @@ def login():
     is_pulse = get_pulse_flag(pulse)
     is_respiration = get_respiration_flag(respiration)
     
+    meta = [center, age, gender, height, weight, bmi, bmi_group,
+            is_operation, is_pain, pain_nrs, is_medical_history, 
+            is_alertness, is_temperature, is_pulse, is_respiration, 
+            is_digestive, is_hemoptysis, is_blood_excrement, 
+            pulse, temperature, respiration]
+    
+    prob, pred = predict(encoded_symtom, meta)
+    # prob = 0
+    # pred = 0
+    
     return_data = {
-        'prob': 0.5,
+        'meta': meta,
+        'prob': prob,
+        'pred': pred, 
         'center': center,
         'age': age,
         'gender': gender,
