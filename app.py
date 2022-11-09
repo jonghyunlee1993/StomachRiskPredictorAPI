@@ -2,9 +2,7 @@ from preprocessor import *
 from model import predict
 from flask import Flask, jsonify, request, render_template
 
-
 app = Flask(__name__)
-
 
 @app.route('/predict')
 def main():
