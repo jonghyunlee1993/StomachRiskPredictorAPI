@@ -7,7 +7,9 @@ app = Flask(__name__)
 
 
 @app.route('/predict')
-def login():
+def main():
+    verbosity = request.args.get('verbose', type=int)
+    
     center = request.args.get('center')
     center = encode_center(center)
     age = request.args.get('age', type=int)
@@ -45,42 +47,44 @@ def login():
             pulse, temperature, respiration]
     
     prob, pred = predict(encoded_symtom, meta)
-    # prob = 0
-    # pred = 0
     
-    return_data = {
-        'meta': meta,
-        'prob': prob,
-        'pred': pred, 
-        'center': center,
-        'age': age,
-        'gender': gender,
-        'height': height,
-        'weight': weight,
-        'pain_nrs': pain_nrs,
-        'temperature': temperature,
-        'pulse': pulse,
-        'respiration': respiration,
-        'symtom': symtom,
-        'encoded_symtom': encoded_symtom,
-        'is_operation': is_operation,
-        'is_pain': is_pain,
-        'is_medical_history': is_medical_history,
-        'is_alertness': is_alertness, 
-        'is_medical_history': is_medical_history,
-        'is_alertness': is_alertness, 
-        'is_digenstive': is_digestive,
-        'is_hemoptysis': is_hemoptysis,
-        'is_blood_excrement': is_blood_excrement,
-        'bmi': bmi,
-        'bmi_group': bmi_group,
-        'is_temperature': is_temperature,
-        'is_pulse': is_pulse,
-        'is_respiration': is_respiration        
-    }
+    if verbosity == 1:
+        return_data = {
+            'prob': prob,
+            'pred': pred, 
+            'center': center,
+            'age': age,
+            'gender': gender,
+            'height': height,
+            'weight': weight,
+            'pain_nrs': pain_nrs,
+            'temperature': temperature,
+            'pulse': pulse,
+            'respiration': respiration,
+            'symtom': symtom,
+            'encoded_symtom': encoded_symtom,
+            'is_operation': is_operation,
+            'is_pain': is_pain,
+            'is_medical_history': is_medical_history,
+            'is_alertness': is_alertness, 
+            'is_medical_history': is_medical_history,
+            'is_alertness': is_alertness, 
+            'is_digenstive': is_digestive,
+            'is_hemoptysis': is_hemoptysis,
+            'is_blood_excrement': is_blood_excrement,
+            'bmi': bmi,
+            'bmi_group': bmi_group,
+            'is_temperature': is_temperature,
+            'is_pulse': is_pulse,
+            'is_respiration': is_respiration        
+        }
+    else:
+        return_data = {
+            'prob': prob,
+            'pred': pred
+        }
     
     return jsonify(return_data)
-
 
 if __name__ == '__main__':
     # app.run(debug=True, host="0.0.0.0", port="16022")
