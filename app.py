@@ -85,5 +85,5 @@ def main():
     return jsonify(return_data)
 
 if __name__ == '__main__':
-    # app.run(debug=True, host="0.0.0.0", port="16022")
-    app.run(debug=True, port="16022")
+    # app.run(host="0.0.0.0", port="16022")
+    app.run(port="16022")

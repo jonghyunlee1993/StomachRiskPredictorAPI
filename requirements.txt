@@ -1,5 +1,5 @@
-pandas
-flask
-tensorflow
-konlpy
+pandas==1.5.1
+flask==2.2.2
+tensorflow==2.10.0
+konlpy==0.6.0
 pickle-mixin
