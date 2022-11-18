@@ -50,7 +50,7 @@
 - 결과 예시
     - postman 을 이용하여 request 하였습니다. 직접 타이핑하면 힘드니 이러한 툴을 사용하시는 것이 편합니다. 
     - Verbose True (기입한 세부 항목 노출 요청)
-    - ![](/Users/jonghyun/Workspace/StomachNet/figures/api_request_example_2_verbose_true.png)
+    - ![](figures/api_request_example_2_verbose_true.png)
     - Verbose  False (예측 결과만 가져오기)
-    - ![](/Users/jonghyun/Workspace/StomachNet/figures/api_request_example_1_verbose_false.png)
+    - ![](figures/api_request_example_1_verbose_false.png)
 
