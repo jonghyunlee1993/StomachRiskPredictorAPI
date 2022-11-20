@@ -44,12 +44,11 @@ def main():
             is_digestive, is_hemoptysis, is_blood_excrement, 
             pulse, temperature, respiration]
     
-    prob, pred = predict(encoded_symtom, meta)
+    prob = predict(encoded_symtom, meta)
     
     if verbosity == 1:
         return_data = {
             'prob': prob,
-            'pred': pred, 
             'center': center,
             'age': age,
             'gender': gender,
