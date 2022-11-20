@@ -37,6 +37,5 @@ def predict(X_token, X_meta):
     X_token = tf.expand_dims(tf.convert_to_tensor(X_token), axis=0)
     X_meta = tf.expand_dims(tf.convert_to_tensor(X_meta), axis=0)
     prob = tf.math.sigmoid(model.predict([X_token, X_meta]))[0][0].numpy()
-    pred = 1 if prob >= 0.25 else 0
     
-    return round(float(prob), 4), float(pred)
+    return round(float(prob), 4)

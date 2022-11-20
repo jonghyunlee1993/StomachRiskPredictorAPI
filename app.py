@@ -78,8 +78,7 @@ def main():
         }
     else:
         return_data = {
-            'prob': prob,
-            'pred': pred
+            'prob': prob
         }
     
     return jsonify(return_data)
