@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>Stomach risk calculator</title>
+
+  <style type="text/css">
+    .tg  {border-collapse:collapse;border-spacing:0;}
+    .tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+      overflow:hidden;padding:10px 5px;word-break:normal;}
+    .tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+      font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+    .tg .tg-baqh{text-align:center;vertical-align:top}
+  </style>
+
+  <!-- Quick Start: CSS -->
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+
+
+  <!-- Nav Bar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Stomach risk calculator</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+  </nav>
+
+</head>
+  
+<body>
+  <div class="inputs" style='margin-left: 10px; margin-right: 10px; margin-top: 5px'>
+    <h2>Submit your data</h2>
+    <p>
+      This calculator compute the patient stomach risk. 
+      <br>
+      This model requires age, sex, height, weight, pain nrs, body temperature, heart rate, respiration rate, medical histories, symptom checkpoints, and description of symptoms. 
+      <br>
+      This model was developed in the South Korean medical dataset, therefore, the description of symptoms was written in Korean. If you write the symptom section in English or other languages, the given text will automatically be translated into Korean (Using Google translator).
+      <br>
+    </p>
+      <!-- Inputs for our ML model -->
+      <form action="{{ url_for('predict')}}" method="post" enctype="multipart/form-data">
+        <div class="row">
+          <div class="col">
+            <input class="form-control" type="text" name="age" placeholder="Age" required="required">
+          </div>
+          <div class="col">
+            <input class="form-control" type="text" name="gender" placeholder="Sex; 0: Female / 1: Male" required="required">
+          </div>
+          <div class="col">
+            <input class="form-control" type="text" name="height" placeholder="Height; cm" required="required">
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col">
+            <input class="form-control" type="text" name="weight" placeholder="Weight; kg" required="required">
+          </div>
+          <div class="col">
+            <input class="form-control" type="text" name="pain_nrs" placeholder="Pain level; 0 ~ 10" required="required">
+          </div>
+          <div class="col">
+            <input class="form-control" type="text" name="temperature" placeholder="Body temperature; °C" required="required">
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col">    
+            <input class="form-control" type="text" name="pulse" placeholder="Heart rate; bpm" required="required">
+          </div>
+          <div class="col">
+            <input class="form-control" type="text" name="respiration" placeholder="Respiration rate; per minute" required="required">
+          </div>
+          <div class="col">
+            <input class="form-control" type="text" name="is_operation" placeholder="Has history of operation; 0: No / 1: Yes" required="required">
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col">    
+            <input class="form-control" type="text" name="is_pain" placeholder="Pain or not; 0: No / 1: Yes" required="required">
+          </div>
+          <div class="col">
+            <input class="form-control" type="text" name="is_medical_history" placeholder="Has medical history or not; 0: No / 1: Yes" required="required">
+          </div>
+          <div class="col">
+            <input class="form-control" type="text" name="is_alertness" placeholder="Is Awakening or not; 0: No / 1: Yes" required="required">
+          </div>
+        </div>
+        <br>
+        <div class="row">
+        </div>
+        <div class="row">
+          <div class="col">    
+            <input class="form-control" type="text" name="is_digestive" placeholder="Has digestive disorder or not; 0: No / 1: Yes" required="required">
+          </div>
+          <div class="col">
+            <input class="form-control" type="text" name="is_hemoptysis" placeholder="Has hemoptysis or not; 0: No / 1: Yes" required="required">
+          </div>
+          <div class="col">
+            <input class="form-control" type="text" name="is_blood_excrement" placeholder="Has bloody excrement or not; 0: No / 1: Yes" required="required">
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col">    
+            <input class="form-control" type="text" name="symtom" placeholder="Description of main symtom" required="required">
+          </div>
+            <br>
+            <br>
+            <button type="submit" class="btn btn-primary btn-block btn-large">Submit</button>
+          </div>
+        </div>
+      </div>
+      </form>
+      <div class="output" style='margin-left: 10px; margin-right: 10px; margin-top: 5px;'>
+      <br>
+      <br>
+      <h3>Stomch risk report</h3>
+      <br>
+      <b> {{ prediction_text }} </b>
+      <br>
+      </div>
+   </div>
+   <br>
+</body>
+</html>

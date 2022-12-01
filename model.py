@@ -28,7 +28,7 @@ def define_model():
 
     return model
 
-def predict(X_token, X_meta):   
+def compute_risk(X_token, X_meta):   
     model = define_model()
     model = tf.keras.models.load_model("data/stomach_net.h5")
     model.compile(optimizer=Adam(lr=0.0005),
