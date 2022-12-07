@@ -53,7 +53,7 @@ def predict():
     prob = compute_risk(symtom, meta)
 
     return render_template('index_kor.html',
-                           prediction_text=f"Probability: {round(prob, 4)}")
+                           prediction_text=f"Probability: {round(float(prob), 4)}")
 
 # @app.route('/predict')
 # def main():
