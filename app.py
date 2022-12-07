@@ -28,7 +28,7 @@ def predict():
     symtom = request.form['symtom']
     symtom = translator.translate(symtom, dest="ko").text
     symtom = morph_text(symtom)
-    encoded_symtom = encode_text(symtom)
+    # encoded_symtom = encode_text(symtom)
     
     is_operation = int(request.form['is_operation'])
     is_pain = int(request.form['is_pain'])
@@ -50,10 +50,10 @@ def predict():
             is_digestive, is_hemoptysis, is_blood_excrement, 
             pulse, temperature, respiration]
     
-    prob = compute_risk(encoded_symtom, meta)
+    prob = compute_risk(symtom, meta)
 
     return render_template('index.html',
-                           prediction_text=f"Probability: {prob}")
+                           prediction_text=f"Probability: {round(float(prob), 4)}")
 
 # @app.route('/predict')
 # def main():
