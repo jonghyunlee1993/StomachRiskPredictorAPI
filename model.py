@@ -58,4 +58,51 @@ def compute_risk(X_token, X_meta):
         
     return model.predict_proba(X)[0][0]
         
+        
+def compute_meta_risk(x):
+    risk = 0
+    risk += x['pain_NRS'] * 0.1
     
+    if x["temperature"] > 37 and x["temperature"] <= 38:
+        risk += 0.3
+    elif x["temperature"] > 38 and x["temperature"] <= 39:
+        risk += 0.6
+    else:
+        risk += 1
+    
+    if x["pulse"] > 80 and x["pulse"] <= 90:
+        risk += 0.3
+    elif x["pulse"] > 90 and x["pulse"] <= 100:
+        risk += 0.6
+    elif x["pulse"] > 100:
+        risk += 1
+        
+    if x["respiration"] > 16 and x["respiration"] <= 18:
+        risk += 0.3
+    elif x["respiration"] > 18 and x["respiration"] <= 20:
+        risk += 0.6
+    elif x["respiration"] > 20:
+        risk += 1
+        
+    if x["is_operation"] == 1:
+        risk += 0.3
+        
+    if x["is_medical_history"] == 1:
+        risk += 0.3
+        
+    if x["is_alertness"] == 0:
+        risk += 1
+        
+    if x["is_digestive"] == 1:
+        risk += 0.3
+        
+    if x["is_hemoptysis"] == 1:
+        risk += 0.5
+        
+    if x["is_bloody_excrement"] == 1:
+        risk += 0.8
+        
+    if risk > 1:
+        risk = 1
+        
+    return risk
