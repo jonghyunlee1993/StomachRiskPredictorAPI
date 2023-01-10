@@ -14,7 +14,7 @@ def compute_meta_risk(pain_nrs, temperature, pulse, respiration,
         risk += 0.3
     elif temperature > 38 and temperature <= 39:
         risk += 0.6
-    else:
+    elif temperature > 39:
         risk += 1
     
     if pulse > 80 and pulse <= 90:
@@ -107,7 +107,7 @@ def predict():
                       is_digestive, is_hemoptysis, is_blood_excrement)
     
     final_prob = (prob + meta_risk) / 2
-    
+        
     return render_template('index.html',
                            prediction_text=f"Probability: {round(float(final_prob), 4)}")
 
