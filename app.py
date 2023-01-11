@@ -23,7 +23,7 @@ def compute_meta_risk(pain_nrs, temperature, pulse, respiration,
         risk += 0.6
     elif pulse > 100:
         risk += 1
-        
+    
     if respiration > 16 and respiration <= 18:
         risk += 0.3
     elif respiration > 18 and respiration <= 20:
@@ -33,22 +33,22 @@ def compute_meta_risk(pain_nrs, temperature, pulse, respiration,
         
     if is_operation == 1:
         risk += 0.3
-        
+    
     if is_medical_history == 1:
         risk += 0.3
-        
+    
     if is_alertness == 0:
         risk += 1
-        
+    
     if is_digestive == 1:
         risk += 0.3
-        
+    
     if is_hemoptysis == 1:
         risk += 0.5
-        
+    
     if is_blood_excrement == 1:
         risk += 0.8
-        
+   
     if risk > 1:
         risk = 1
         

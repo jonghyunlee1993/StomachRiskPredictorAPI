@@ -51,6 +51,8 @@ def compute_meta_risk(pain_nrs, temperature, pulse, respiration,
     if risk > 1:
         risk = 1
         
+    print(risk)
+        
     return risk
 
 app = Flask(__name__)
@@ -80,7 +82,8 @@ def predict():
     # encoded_symtom = encode_text(symtom)
     
     is_operation = int(request.form['is_operation'])
-    is_pain = int(request.form['is_pain'])
+    is_pain = int([1 if pain_nrs >= 1 else 0][0])
+    # is_pain = int(request.form['is_pain'])
     is_medical_history = int(request.form['is_medical_history'])
     is_alertness = int(request.form['is_alertness'])
     is_digestive = int(request.form['is_digestive'])
